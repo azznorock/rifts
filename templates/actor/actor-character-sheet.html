@@ -1,0 +1,333 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+	<!-- Sheet Header -->
+	<header class="sheet-header flexrow">
+	
+		<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+		
+		<div class="header-fields flexrow">		
+		  	{{!-- Character Name --}}	
+			<h1 class="charname">
+				<input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+			</h1>
+			
+			{{!-- Character Class XP --}}
+			<aside class="header-exp flexcol">			
+				<div class="charlevel" data-tooltip="{{multiclassLabels}}">
+					<label>Level {{system.attributes.level.value}}</label>
+					<span class="levels">{{system.attributes.occ.value}}</span>
+				</div>
+				
+				<div class="experience flexrow">
+					<input type="text" name="system.attributes.xp.value" value="{{system.attributes.xp.value}}" placeholder="0" data-dtype="Number">
+					<span class="sep">/</span>
+					<span class="max">{{system.attributes.xp.max}}</span>
+				</div>				
+			</aside>
+						
+			{{!-- Character Summary --}}
+			<ul class="summary flexrow">
+                <li>
+					<input type="text" name="system.race" value="{{system.race}}" placeholder="R.C.C./Race"/>
+				</li>
+				<li>
+					<input type="text" name="system.align" value="{{system.align}}" placeholder="Alignment"/>
+				</li>
+				<li>
+					<input type="text" name="system.gender" value="{{system.gender}}" placeholder="Gender"/>
+				</li>				
+			</ul>
+			
+			{{!-- Header Attributes --}}
+            <ul class="attributes flexrow">
+                <li class="attribute health">
+                    <h4 class="attribute-name box-title">M.D.C.</h4>
+                    
+                    <div class="attribute-value multiple">
+                        <input type="text" name="system.mdc.value" value="{{system.mdc.value}}" data-dtype="Number"/>
+                        <span class="sep"> / </span>
+                        <input type="text" name="system.mdc.max" value="{{system.mdc.max}}" data-dtype="Number"/>
+                    </div>                    
+                </li>				
+				<li class="attribute health">
+                    <h4 class="attribute-name box-title">S.D.C.</h4>
+                    
+                    <div class="attribute-value multiple">
+                        <input type="text" name="system.sdc.value" value="{{system.sdc.value}}" data-dtype="Number"/>
+                        <span class="sep"> / </span>
+                        <input type="text" name="system.sdc.max" value="{{system.sdc.max}}" data-dtype="Number"/>
+                    </div>                    
+                </li>
+				<li class="attribute health">
+                    <h4 class="attribute-name box-title">H.P.</h4>
+                    
+                    <div class="attribute-value multiple">
+                        <input type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+                        <span class="sep"> / </span>
+                        <input type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/>
+                    </div>                    
+                </li>
+				<li class="attribute health">
+                    <h4 class="attribute-name box-title">P.P.E.</h4>
+                    
+                    <div class="attribute-value multiple">
+                        <input type="text" name="system.ppe.value" value="{{system.ppe.value}}" data-dtype="Number"/>
+                        <span class="sep"> / </span>
+                        <input type="text" name="system.ppe.max" value="{{system.ppe.max}}" data-dtype="Number"/>
+                    </div>                    
+                </li>
+				<li class="attribute health">
+                    <h4 class="attribute-name box-title">I.S.P.</h4>
+                    
+                    <div class="attribute-value multiple">
+                        <input type="text" name="system.isp.value" value="{{system.isp.value}}" data-dtype="Number"/>
+                        <span class="sep"> / </span>
+                        <input type="text" name="system.isp.max" value="{{system.isp.max}}" data-dtype="Number"/>
+                    </div>                    
+                </li>
+			</ul>
+		</div>
+		
+	</header>
+	
+	<section class="sheet-resources flexrow">
+	
+		{{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+		use both the "grid" and "grid-Ncol" class where "N" can be any number
+		from 1 to 12 and will create that number of columns.  --}}
+	
+		{{!-- Character Resources --}}		
+		<div class="resources grid grid-8col">
+
+			{{!-- "flex-group-center" is also defined in the _grid.scss file
+			and it will add a small amount of padding, a border, and will
+			center all of its child elements content and text. --}}
+			
+			{{#each system.abilities as |ability key|}}
+			<div class="resource flex-group-center">			
+				<div class="resource-name">
+					<label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{localize (concat "RIFTS.Ability" (toUpperCase ability.label) "Abbr")}}</label>
+				</div>								
+				<input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>				
+				{{!-- <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{numberFormat ability.mod decimals=0 sign=true}}</span> --}}
+			</div>
+			{{/each}}
+			
+		</div>
+	</section>
+
+	{{!-- Sheet Tab Navigation --}}
+	<nav class="sheet-tabs tabs" data-group="primary">
+		{{!-- Default tab is specified in actor-sheet.mjs --}}    
+		<a class="item" data-tab="combat">Abilities</a>
+		<a class="item" data-tab="skills">Skills</a>    
+		<a class="item" data-tab="items">Equipment</a>		
+		<a class="item" data-tab="spells">Magic</a>
+		<a class="item" data-tab="psionics">Psionics</a>
+		<a class="item" data-tab="augmentation">Augmentation</a>
+		<a class="item" data-tab="biography">Biography</a>
+	</nav>
+
+	{{!-- Sheet Body --}}
+	<section class="sheet-body">
+
+		{{!--Owned Combat Tab --}}
+		<div class="tab combat" data-group="primary" data-tab="combat">
+			<section class="grid grid-4col">
+			
+				<aside class="sidebar">
+					<div class="flexcol">												
+						<div class="abilities">
+							<h4>Attribute Bonuses</h4>
+							<div class="ability-name">
+								Skill Bonus: +{{system.abilities.iq.mod}}%
+							</div>
+							<div class="ability-name">
+								Save vs. Psionics/Insanity: +{{system.abilities.me.mod}}
+							</div>
+							<div class="ability-name">
+								Trust/Intimidate: {{system.abilities.ma.mod}}%
+							</div>
+							<div class="ability-name">
+								HtH Damage Bonus: +{{system.abilities.ps.mod}}
+							</div>
+							<div class="ability-name">
+								Strike/Parry/Dodge Bonus: +{{system.abilities.pp.mod}}
+							</div>
+							<div class="ability-name">
+								Save vs. Coma: +{{system.abilities.pe.mod}}  
+							</div>
+							<div class="ability-name">
+								Poison/Magic/Pain: +{{system.abilities.pe.mod}}
+							</div>
+							<div class="ability-name">
+								Charm/Impress: +{{system.abilities.pb.mod}}%
+							</div>
+							<div class="ability-name">
+								Speed (run): {{system.abilities.spd.mod}} (m. per melee)
+							</div>
+							<div class="ability-name">
+								Speed (run): {{system.abilities.spd.value}} (m. per phase)
+							</div>	
+							<div  class="ability-name">
+								&nbsp;
+							</div>												
+						</div>						
+					</div>
+					<br>
+					<div class="abilities flexcol">						
+						<h4>Savings Throws</h4>
+						<div class="ability-name">
+							Coma/Death: +{{system.abilities.pe.mod}}
+						</div>
+						<div  class="ability-name">
+							Disease(14): +{{system.abilities.pe.mod}}
+						</div>
+						<div  class="ability-name">
+							Drugs/Toxins(15): +{{system.abilities.pe.mod}}
+						</div>
+						<div  class="ability-name">
+							Horror: +{{system.abilities.me.mod}}
+						</div>
+						<div  class="ability-name">
+							Insanity(12): +{{system.abilities.me.mod}}
+						</div>
+						<div  class="ability-name">
+							K.O./Stun(15): +{{system.abilities.pe.mod}}
+						</div>
+						<div  class="ability-name">
+							Magic Ritual(16): +{{system.abilities.pe.mod}}
+						</div>
+						<div  class="ability-name">
+							Magic Spell(12): +{{system.abilities.pe.mod}}
+						</div>
+						<div  class="ability-name">
+							Poison(14/16): +{{system.abilities.pe.mod}}
+						</div>
+						<div  class="ability-name">
+							Psionics(6/10/12/15): +{{system.abilities.me.mod}}
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>				
+					</div>
+				</aside>
+				
+				<aside class="sidebar">
+					<div class="abilities flexcol">						
+						<h4>Combat Skills</h4>
+						<div class="ability-name">
+							Hand to Hand: Basic
+						</div>
+						<div  class="ability-name">
+							#APM: 4
+						</div>
+						<div  class="ability-name">
+							Init: +0
+						</div>
+						<div  class="ability-name">
+							Damage: +{{system.abilities.ps.mod}}
+						</div>
+						<div  class="ability-name">
+							Strike:	+{{system.abilities.pp.mod}}						
+						</div>
+						<div  class="ability-name">
+							Parry: +{{system.abilities.pp.mod}}
+						</div>
+						<div  class="ability-name">
+							Dodge: +{{system.abilities.pp.mod}}
+						</div>
+						<div  class="ability-name">
+							Roll w/ Punch: +0
+						</div>
+						<div  class="ability-name">
+							Roll w/ Fall: +0
+						</div>
+						<div  class="ability-name">
+							Roll w/ Impact: +0
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						
+					</div>
+					<br>
+					<div class="abilities flexcol">						
+						<h4>Something...</h4>
+						<div class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;						
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						<div  class="ability-name">
+							&nbsp;
+						</div>
+						
+					</div>
+				</aside>
+				
+				<section class="main grid-span-2">
+					{{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
+					{{> "systems/rifts/templates/actor/parts/actor-combat.html"}}					
+				</section>
+		   </section>
+		</div>
+		
+		{{!-- Owned Skills Tab --}}
+		<div class="tab skills" data-group="primary" data-tab="skills">
+		   {{> "systems/rifts/templates/actor/parts/actor-skills.html"}}
+		</div>
+
+		{{!-- Owned Items Tab --}}
+		<div class="tab items" data-group="primary" data-tab="items">
+		   {{> "systems/rifts/templates/actor/parts/actor-items.html"}}
+		</div>
+		
+		{{!-- Owned Spells Tab --}}
+		<div class="tab spells" data-group="primary" data-tab="spells">
+		  {{> "systems/rifts/templates/actor/parts/actor-spells.html"}}
+		</div>
+		
+		{{!-- Owned Psionics Tab --}}
+		<div class="tab psionics" data-group="primary" data-tab="psionics">
+		  {{> "systems/rifts/templates/actor/parts/actor-psionics.html"}}
+		</div>
+
+		{{!-- Owned Augmentation Tab --}}
+		<div class="tab augmentation" data-group="primary" data-tab="augmentation">
+		  {{> "systems/rifts/templates/actor/parts/actor-augmentation.html"}}
+		</div>
+
+		{{!-- Biography Tab --}}
+		<div class="tab biography" data-group="primary" data-tab="description">
+		  {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
+		  {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+		</div>
+
+	</section>
+</form>

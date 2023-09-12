@@ -1,0 +1,142 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "base": {
+        "mdc": {
+          "value": 5,
+          "min": 0,
+          "max": 5
+        },
+        "sdc": {
+          "value": 5,
+          "min": 0,
+          "max": 5
+        },        
+		"hp": {
+          "value": 10,
+          "min": 0,
+          "max": 10
+        },
+        "ppe": {
+          "value": 5,
+          "min": 0,
+          "max": 5
+        },
+        "isp": {
+          "value": 5,
+          "min": 0,
+          "max": 5
+        },
+        "biography": ""
+      }
+    },
+    "character": {
+      "templates": ["base"],
+      "attributes": {
+        "alias": {
+          "value": ""
+        },
+		"occ": {
+          "value": ""
+        },
+		"rcc": {
+          "value": ""
+        },
+		"level": {
+          "value": 1
+        },
+		"xp": {
+          "value": 0
+        },
+		"age": {
+          "value": ""
+        },		
+		"gender": {
+          "value": ""
+        },
+		"height": {
+          "value": ""
+        },
+		"weight": {
+          "value": ""
+        },
+		"hf": {
+          "value": ""
+        },
+		"orig": {
+          "value": ""
+        },
+		"align": {
+          "value": ""
+        },
+		"languages": {
+          "value": ""
+        }
+      },
+      "abilities": {
+        "iq": {
+          "value": 10
+        },
+        "me": {
+          "value": 10
+        },
+        "ma": {
+          "value": 10
+        },
+        "ps": {
+          "value": 10
+        },
+        "pp": {
+          "value": 10
+        },
+        "pe": {
+          "value": 10
+        },
+        "pb": {
+          "value": 10
+        },
+        "spd": {
+          "value": 10
+        }
+      }
+    },
+    "npc": {
+      "templates": ["base"],
+      "cr": 0
+    }
+  },
+  "Item": {
+    "types": ["item", "feature", "spell", "skill", "psionic"],
+    "templates": {
+      "base": {
+        "description": ""
+      }
+    },
+    "item": {
+      "templates": ["base"],
+      "quantity": 1,
+      "weight": 0,
+      "formula": "d20 + @pp.mod + ceil(@lvl / 2)"
+    },
+	"skill": {
+      "templates": ["base"],
+      "category": "",
+	  "base": 0,
+	  "perlevel": 0,
+	  "additionalbonus": 0,
+      "formula": "d100"
+    },
+    "feature": {
+      "templates": ["base"]
+    },
+    "spell": {
+      "templates": ["base"],
+      "spellLevel": 1
+    },
+	"psionic": {
+      "templates": ["base"],
+      "spellLevel": 1
+    }
+  }
+}

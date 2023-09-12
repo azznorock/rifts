@@ -1,0 +1,26 @@
+{
+  "RIFTS.AbilityIQ": "Intelligence Quotient",
+  "RIFTS.AbilityME": "Mental Endurance",
+  "RIFTS.AbilityMA": "Mental Affiinity",
+  "RIFTS.AbilityPS": "Physical Strength",
+  "RIFTS.AbilityPP": "Physical Prowess",
+  "RIFTS.AbilityPE": "Physical Endurance",
+  "RIFTS.AbilityPB": "Physical Beauty",
+  "RIFTS.AbilitySPD": "Speed",
+ 
+  "RIFTS.AbilityIQAbbr": "I.Q.",
+  "RIFTS.AbilityMEAbbr": "M.E.",
+  "RIFTS.AbilityMAAbbr": "M.A.",
+  "RIFTS.AbilityPSAbbr": "P.S.",
+  "RIFTS.AbilityPPAbbr": "P.P.",
+  "RIFTS.AbilityPEAbbr": "P.E.",
+  "RIFTS.AbilityPBAbbr": "P.B.",
+  "RIFTS.AbilitySPDAbbr": "Spd.",
+
+  "RIFTS.EffectCreate": "Create Effect",
+  "RIFTS.EffectToggle": "Toggle Effect",
+  "RIFTS.EffectEdit": "Edit Effect",
+  "RIFTS.EffectDelete": "Delete Effect",
+
+  "RIFTS.Add": "Add"
+}

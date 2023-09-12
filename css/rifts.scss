@@ -1,0 +1,53 @@
+// Add custom fonts by visiting and search https://fonts.google.com
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+// Import utilities.
+@import 'utils/typography';
+@import 'utils/colors';
+@import 'utils/mixins';
+@import 'utils/variables';
+
+/* Global styles */
+@import 'global/window';
+@import 'global/grid';
+@import 'global/flex';
+
+/* Styles limited to rifts sheets */
+.rifts {
+  @import 'components/forms';
+  @import 'components/resource';
+  @import 'components/items';
+  @import 'components/effects';
+}
+
+#logo{content:url(../images/rifts-logo.png);width:100px;height:30px}
+
+/*
+.app.window-app.rifts .window-content  {
+	background-image: url("../images/borderRight.png"), url("../images/background.png");
+	background-position: right top, left top;
+	background-repeat: no-repeat, repeat;
+}
+*/
+
+.app.window-app.dialog .window-content  {
+	background-image: url("../images/background.png");
+	background-position: left top;
+	background-repeat: repeat;
+}
+
+.window-header::after {
+	display: block;
+	content: "";
+	position: absolute;
+	width: 200px;
+	height: 36px;
+	left: 50%;
+	top: -14px;
+	margin-left: -100px;
+	background: url(../images/rifts-logo.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center top;
+    pointer-events: none;
+}
